@@ -1,5 +1,6 @@
 
 const ol = document.querySelector( 'ol' );
+const weatherCity = document.querySelector( '.weather-city' );
 
 const keyAPI = '7fc20c25eac20de03136276c08704b5b';
 const lat = 46.558860;
@@ -20,11 +21,30 @@ async function listCities() {
     var citiesText='';
 
     cityList.forEach( city => {   
-        citiesText += `<li data-id=${city.id}>${city.name}<li>`;
+        citiesText += `<li data-id="${city.id}">${city.name}</li>`;
     } );
     
     ol.innerHTML = citiesText;
   
 }
 
+/**
+ * 
+ * @param {string} iconName 
+ * @returns image element, it should be used appenChild(icon)
+ */
+async function getIcon(iconName) {
+    const iconAddress = `http://openweathermap.org/img/wn/${iconName}@2x.png`;
+    const response = await fetch( iconAddress );
+    const blob = await response.blob();
+    const url = URL.createObjectURL( blob );
+
+    const icon = new Image();
+    icon.src = url;
+
+    //weatherCity.appendChild( icon );
+    return icon;
+}
+
 listCities();
+getIcon( '02d' );

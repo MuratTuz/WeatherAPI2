@@ -73,3 +73,7 @@ button{
         width: 5rem;
         border-radius: 5%;
 }
+
+.weather-list{
+    overflow: scroll;
+}
